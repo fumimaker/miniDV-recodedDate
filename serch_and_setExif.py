@@ -1,6 +1,7 @@
 import os
 import subprocess
 from datetime import datetime, timedelta
+import sys
 
 def get_recorded_date(filepath):
     """MediaInfoを使用してAVIファイルのRecorded Dateを取得"""
@@ -51,6 +52,14 @@ def process_files_recursively(directory):
                 else:
                     print(f"MP4 file not found for {avi_filepath}")
 
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <directory_path>")
+        sys.exit(1)
 
-directory = "./"  # 再帰的に探索するディレクトリ
-process_files_recursively(directory)
+    directory = sys.argv[1]
+    if not os.path.isdir(directory):
+        print(f"Error: {directory} is not a valid directory.")
+        sys.exit(1)
+
+    process_files_recursively(directory)

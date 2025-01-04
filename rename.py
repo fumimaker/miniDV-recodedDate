@@ -2,6 +2,7 @@ import os
 import subprocess
 import re
 from datetime import datetime
+import sys
 
 
 def get_recorded_date(filepath):
@@ -41,5 +42,14 @@ def rename_files(directory):
                 print(f"No 'Recorded date' found for {filename}")
 
 
-directory = "./"  # 対象ディレクトリのパスを指定
-rename_files(directory)
+if __name__ == "__main__":
+    if len(sys.argv) != 2:
+        print("Usage: python script.py <directory_path>")
+        sys.exit(1)
+
+    directory = sys.argv[1]
+    if not os.path.isdir(directory):
+        print(f"Error: {directory} is not a valid directory.")
+        sys.exit(1)
+
+    rename_files(directory)
